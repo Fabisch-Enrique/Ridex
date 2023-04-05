@@ -1,5 +1,6 @@
 # An implementation for using Guardian
 # We will use this module to interact with tokens in our application
+# A boiler plate code to configure the "Guardian Library"
 
 defmodule Ridex.Guardian do
   use Guardian, otp_app: :ridex
