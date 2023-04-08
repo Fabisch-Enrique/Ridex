@@ -1,3 +1,9 @@
+# Phoenix Channels allows sending of real-time messages between senders and receivers over HTTP
+# This is done through Websockets Connections
+# Clients connect to a socket, much like they would with a "native" websockets server
+# Phoenix uses "topics" to route messages to the right channel, and after a client connects to a socket, he can join one or many topics, and the same client can publish messages to those topics and receive updates from them.
+# A topic can be any string, which we could use to broadcast a general news feed available to all users. We can also parameterize topic names.
+
 # Ridex
 
 To start your Phoenix server:
