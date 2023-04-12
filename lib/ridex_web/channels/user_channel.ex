@@ -5,7 +5,7 @@ defmodule RidexWeb.UserChannel do
   # For this we implement a second channel, using one topic per User ID
   # This way, we’ll be able to push updates only to a specific user
   # So we create this second Channel (UserChannel and routemessages to it)
-  def join("user:", <> user_id, _params, socket) do
+  def join("user:" <> user_id, _params, socket) do
     %{id: id} = socket.assigns[:current_user]
 
     if id == user_id do
