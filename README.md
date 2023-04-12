@@ -4,6 +4,9 @@
 # Phoenix uses "topics" to route messages to the right channel, and after a client connects to a socket, he can join one or many topics, and the same client can publish messages to those topics and receive updates from them.
 # A topic can be any string, which we could use to broadcast a general news feed available to all users. We can also parameterize topic names.
 
+# A Geohash is just a string that encodes/maps a geographical area in a cell. A longer geohash encodes a smaller area and vice versa.
+# In our case we will name our topic the geohash, this way we can easily broadcast messages to all users connected in the same area.
+
 # Ridex
 
 To start your Phoenix server:
