@@ -14,6 +14,7 @@ export default ({ user }) => {
 
     // The Client will open a connection to the socket, when the user logs in  on the map
     // We use Socket constructor provided by Phoenix JS Library, by passing the authentication token as a parameter.
+    // useEffect checks for every change of state
 
     useEffect(() => {
         const socket = new Socket('/socket', { params: { token: user.token } });
