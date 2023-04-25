@@ -6,8 +6,23 @@ defmodule RidexWeb.CellChannel do
   intercept ["ride:requested"]
 
   # for now, our join doesn't do anything because Phoenix manages state of clients connected to a specific channel for us.
-  def join("cell:" <> _geohash, _params, socket) do
+  def join("cell:" <> _geohash, %{"position" => position}, socket) do
+    send(self(), {:after_join, position})
     {:ok, %{}, socket}
+  end
+
+
+  def handle_info({:after_join, position}, socket) do
+    user = socket.assigns[:current_user]
+
+    if user.type == "driver" do
+      RidexWeb.Presence.track(socket, user.id, %{
+        lat: position["lat"],
+        lng: position["lng"]
+      })
+    end
+
+    {:noreply, socket}
   end
 
 
@@ -31,7 +46,7 @@ defmodule RidexWeb.CellChannel do
       request ->
         case Ride.create(request.rider_id, socket.assigns[:current_user].id, request.position) do
           {:ok, ride} ->
-            
+
             # broadcast to both the drive and the rider about the created ride
             RidexWeb.Endpoint.broadcast("user:#{ride.driver_id}", "ride:created", %{ride_id: ride.id})
             RidexWeb.Endpoint.broadcast("user:#{ride.rider_id}", "ride:created", %{ride_id: ride.id})
