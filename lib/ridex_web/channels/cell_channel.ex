@@ -6,6 +6,7 @@ defmodule RidexWeb.CellChannel do
   intercept ["ride:requested"]
 
   # for now, our join doesn't do anything because Phoenix manages state of clients connected to a specific channel for us.
+  
   def join("cell:" <> _geohash, %{"position" => position}, socket) do
     send(self(), {:after_join, position})
     {:ok, %{}, socket}
